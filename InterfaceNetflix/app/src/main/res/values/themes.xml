@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.InterfaceNetflix" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/light_red</item>
+        <item name="colorPrimaryDark">@color/red</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Theme.InterfaceNetflix" parent="Base.Theme.InterfaceNetflix" />
+</resources>
