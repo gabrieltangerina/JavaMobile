@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.CalculadoraDeGorjeta" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/orange</item>
+        <item name="colorPrimaryDark">@color/darkOrange</item>
+        <item name="android:windowBackground">@color/whiteBackground</item>
+    </style>
+
+    <style name="Theme.CalculadoraDeGorjeta" parent="Base.Theme.CalculadoraDeGorjeta" />
+</resources>
