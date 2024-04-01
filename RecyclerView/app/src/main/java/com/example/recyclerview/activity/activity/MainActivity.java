@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 
 import com.example.recyclerview.R;
@@ -47,7 +49,22 @@ public class MainActivity extends AppCompatActivity {
             new ClickListener(
                     getApplicationContext(),
                     recyclerView,
-                    
+                    new ClickListener.OnItemClickListener(){
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            
+                        }
+
+                        @Override
+                        public void onItemClick(View view, int position) {
+
+                        }
+
+                        @Override
+                        public void onLongItemClick(View view, int position) {
+
+                        }
+                    }
             );
         );
     }
