@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.recyclerview.R;
 import com.example.recyclerview.activity.adapter.Adapter;
@@ -52,20 +53,22 @@ public class MainActivity extends AppCompatActivity {
                     new ClickListener.OnItemClickListener(){
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            
+
                         }
 
                         @Override
-                        public void onItemClick(View view, int position) {
-
+                        public void onItemClick(View view, int position){
+                            Filme filme = listaFilmes.get(position);
+                            Toast.makeText(getApplicationContext(), "Item pressionado: " + filme.getTituloFilme(), Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void onLongItemClick(View view, int position) {
-
+                            Filme filme = listaFilmes.get(position);
+                            Toast.makeText(getApplicationContext(), "Click longo: " + filme.getTituloFilme(), Toast.LENGTH_SHORT).show();
                         }
                     }
-            );
+            )
         );
     }
 
