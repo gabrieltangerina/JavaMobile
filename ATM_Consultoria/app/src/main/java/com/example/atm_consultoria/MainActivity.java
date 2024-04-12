@@ -1,5 +1,6 @@
 package com.example.atm_consultoria;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
@@ -32,8 +33,7 @@ public class MainActivity extends AppCompatActivity {
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                enviarEmail();
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
@@ -50,6 +50,27 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+    }
+
+    public void enviarEmail(){
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+
+        // Seria para quem vai enviar o email, Para:
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"atendimento@consultoria.com.br"});
+
+        // Assunto do email
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Contato pelo app");
+
+        // Conteudo do email
+        intent.putExtra(Intent.EXTRA_TEXT, "Mensagem automática");
+
+        // Sãos os apps que irão aparecer ao clicar no icone no canto inferior direito
+        // intent.setType("message/rfc822"); // Pega os apps de email
+        intent.setType("text/plain"); // Pega Whatzaap, Facebook
+
+        // Aparece a telinha para clicar no app, o title é o titulo dessa telinha
+        startActivity(Intent.createChooser(intent, "Compartilhar"));
     }
 
     @Override

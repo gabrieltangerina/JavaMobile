@@ -1,14 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.servicos.ServicosFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Sistema de Gestão de Qualidade"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et ultricies elit, sed rutrum eros. Phasellus tempor, ipsum sit amet maximus blandit, lectus arcu pulvinar libero, nec tincidunt justo elit sed leo. Vivamus sit amet pellentesque ante. In porttitor, turpis quis mollis sodales, eros justo malesuada tellus, non congue nunc elit ut libero. Morbi sit amet arcu vel turpis ultrices elementum. Suspendisse posuere, mi a semper mattis, metus arcu ornare sem, vitae dapibus tellus massa eget massa. Quisque tristique nisl ut neque vehicula pharetra."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="Indicadores de desempenho"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et ultricies elit, sed rutrum eros. Phasellus tempor, ipsum sit amet maximus blandit, lectus arcu pulvinar libero, nec tincidunt justo elit sed leo. Vivamus sit amet pellentesque ante. In porttitor, turpis quis mollis sodales, eros justo malesuada tellus, non congue nunc elit ut libero. Morbi sit amet arcu vel turpis ultrices elementum. Suspendisse posuere, mi a semper mattis, metus arcu ornare sem, vitae dapibus tellus massa eget massa. Quisque tristique nisl ut neque vehicula pharetra."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+</androidx.constraintlayout.widget.ConstraintLayout>
