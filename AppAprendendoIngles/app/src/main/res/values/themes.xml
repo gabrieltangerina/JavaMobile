@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.AppAprendendoIngles" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/brown</item>
+        <item name="colorPrimaryDark">@color/darkBrown</item>
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
+
+    <style name="Theme.AppAprendendoIngles" parent="Base.Theme.AppAprendendoIngles" />
+</resources>
