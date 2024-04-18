@@ -1,8 +1,10 @@
-package com.example.listatarefas;
+package com.example.listatarefas.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.listatarefas.R;
 
 public class AdicionarTarefaActivity extends AppCompatActivity {
 
