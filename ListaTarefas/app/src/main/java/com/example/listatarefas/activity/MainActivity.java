@@ -17,11 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.listatarefas.adapter.AdapterTarefas;
 import com.example.listatarefas.databinding.ActivityMainBinding;
+import com.example.listatarefas.helper.RecyclerItemClickListener;
 import com.example.listatarefas.model.Tarefa;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +44,32 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
+
+        recyclerView = findViewById(R.id.recyclerListaTarefas);
+
+        // Quando o usuário carregar o app pela primeira vez, será criado o evento de click
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(
+                        getApplicationContext(),
+                        recyclerView,
+                        new RecyclerItemClickListener.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+                                Toast.makeText(getApplicationContext(), "Clicou no item: " + listaTarefas.get(position).getNomeTarefa(), Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onLongItemClick(View view, int position) {
+                                Toast.makeText(getApplicationContext(), "Clicou e segurou no item: " + listaTarefas.get(position).getNomeTarefa(), Toast.LENGTH_LONG).show();
+                            }
+
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                            }
+                        }
+                )
+        );
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
