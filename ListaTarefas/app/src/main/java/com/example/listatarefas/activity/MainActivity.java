@@ -30,22 +30,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
-    private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
     private RecyclerView recyclerView;
+    private View binding;
     private List<Tarefa> listaTarefas = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        setSupportActionBar(binding.toolbar);
+        setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.recyclerListaTarefas);
+        binding = findViewById(R.id.fab);
 
         // Quando o usuário carregar o app pela primeira vez, será criado o evento de click
         recyclerView.addOnItemTouchListener(
@@ -71,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 )
         );
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
+        binding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -114,9 +109,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -128,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Toast.makeText(getApplicationContext(), "Configurações", Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);

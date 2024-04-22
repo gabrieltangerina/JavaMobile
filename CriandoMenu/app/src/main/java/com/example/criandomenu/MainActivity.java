@@ -28,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Tratando o evento de click
-
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
