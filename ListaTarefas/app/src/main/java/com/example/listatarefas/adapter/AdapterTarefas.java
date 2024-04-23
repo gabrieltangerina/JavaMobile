@@ -49,7 +49,7 @@ public class AdapterTarefas extends RecyclerView.Adapter<AdapterTarefas.MyViewHo
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tarefa = itemView.findViewById(R.id.textTarefa);
+            tarefa = itemView.findViewById(R.id.editTarefa);
         }
     }
 

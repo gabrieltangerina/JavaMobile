@@ -1,5 +1,6 @@
 package com.example.listatarefas.activity;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.listatarefas.adapter.AdapterTarefas;
 import com.example.listatarefas.databinding.ActivityMainBinding;
+import com.example.listatarefas.helper.DbHelper;
 import com.example.listatarefas.helper.RecyclerItemClickListener;
 import com.example.listatarefas.model.Tarefa;
 
@@ -40,7 +42,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.recyclerListaTarefas);
+
+        // Pegando o botao do canto inferior direito que cria tarefas
         binding = findViewById(R.id.fab);
+
+        // Classe para gravar valores, como um objeto (chave, valor)
+        ContentValues cv = new ContentValues();
+        cv.put("nome", "Teste");
+
+        DbHelper db = new DbHelper(this);
+        db.getWritableDatabase().insert("tarefas", null, cv);
 
         // Quando o usuário carregar o app pela primeira vez, será criado o evento de click
         recyclerView.addOnItemTouchListener(
@@ -115,14 +126,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Toast.makeText(getApplicationContext(), "Configurações", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Configurações", Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);
