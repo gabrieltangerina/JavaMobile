@@ -17,6 +17,7 @@ import com.google.android.material.textfield.TextInputEditText;
 public class AdicionarTarefaActivity extends AppCompatActivity {
 
     private TextInputEditText editTarefa;
+    private Tarefa tarefaEdicao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,12 @@ public class AdicionarTarefaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_adicionar_tarefa);
 
         editTarefa = findViewById(R.id.editTarefa);
+
+        tarefaEdicao = (Tarefa) getIntent().getSerializableExtra("tarefaSelecionada");
+
+        if(tarefaEdicao != null){
+            editTarefa.setText(tarefaEdicao.getNomeTarefa());
+        }
     }
 
     @Override
@@ -40,12 +47,34 @@ public class AdicionarTarefaActivity extends AppCompatActivity {
 
             String nomeTarefa = editTarefa.getText().toString();
             if(!nomeTarefa.isEmpty()){
-                Tarefa tarefa = new Tarefa();
-                tarefa.setNomeTarefa(String.valueOf(editTarefa.getText()));
-                tarefaDAO.salvar(tarefa);
 
-                // Para fechar a activity e voltar para a inicial
-                finish();
+                if(tarefaEdicao != null){ // Editando a tarefa
+
+                    Tarefa tarefaEditada = new Tarefa();
+                    tarefaEditada.setNomeTarefa(nomeTarefa);
+                    tarefaEditada.setId(tarefaEdicao.getId());
+
+                    if(tarefaDAO.atualizar(tarefaEditada)){
+                        finish();
+                        Toast.makeText(getApplicationContext(), "Tarefa atualizada", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Erro ao atualizar tarefa: ", Toast.LENGTH_LONG).show();
+                    }
+
+                }else{
+                    Tarefa tarefa = new Tarefa();
+                    tarefa.setNomeTarefa(String.valueOf(editTarefa.getText()));
+
+                    if(tarefaDAO.salvar(tarefa)){
+                        finish();
+                        Toast.makeText(getApplicationContext(), "Tarefa salva", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Erro ao salvar tarefa: ", Toast.LENGTH_LONG).show();
+                    }
+
+                    // Para fechar a activity e voltar para a inicial
+                    finish();
+                }
             }else{
                 Toast.makeText(this, "Informe uma tarefa para ser salva", Toast.LENGTH_SHORT).show();
                 return false;

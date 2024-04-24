@@ -55,7 +55,12 @@ public class MainActivity extends AppCompatActivity {
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
-                                Toast.makeText(getApplicationContext(), "Clicou no item: " + listaTarefas.get(position).getNomeTarefa(), Toast.LENGTH_SHORT).show();
+                                Tarefa tarefaSelecionada = listaTarefas.get(position);
+
+                                Intent intent = new Intent(MainActivity.this, AdicionarTarefaActivity.class);
+                                intent.putExtra("tarefaSelecionada", tarefaSelecionada);
+
+                                startActivity(intent);
                             }
 
                             @Override

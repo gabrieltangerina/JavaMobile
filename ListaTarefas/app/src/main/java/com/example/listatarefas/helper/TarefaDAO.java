@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.listatarefas.model.Tarefa;
@@ -15,11 +16,9 @@ public class TarefaDAO implements ITarefaDAO{
 
     private SQLiteDatabase salvaDados;
     private SQLiteDatabase leDados;
-    private Context context;
 
     public TarefaDAO(Context context) {
         DbHelper db = new DbHelper(context);
-        this.context = context;
 
         salvaDados = db.getWritableDatabase();
         leDados = db.getReadableDatabase();
@@ -33,9 +32,9 @@ public class TarefaDAO implements ITarefaDAO{
 
         try{
             salvaDados.insert(DbHelper.TABELA_TAREFAS, null, cv);
-            Toast.makeText(context, "Tarefa salva com SUCESSO!", Toast.LENGTH_LONG).show();
+            Log.i("INFO", "Tarefa salva com sucesso");
         }catch (Exception e){
-            Toast.makeText(context, "Erro ao salvar tarefa: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            Log.i("INFO", "ERRO ao salvar tarefa");
             return false;
         }
 
@@ -44,7 +43,20 @@ public class TarefaDAO implements ITarefaDAO{
 
     @Override
     public boolean atualizar(Tarefa tarefa) {
-        return false;
+
+        ContentValues cv = new ContentValues();
+        cv.put("nome", tarefa.getNomeTarefa());
+
+        try{
+            String[] args = { tarefa.getId().toString() };
+            salvaDados.update(DbHelper.TABELA_TAREFAS, cv, "id = ?", args);
+            Log.i("INFO", "Tarefa atualizada com sucesso");
+        }catch(Exception e){
+            Log.i("INFO", "ERRO ao atualizar tarefa");
+            return false;
+        }
+
+        return true;
     }
 
     @Override
@@ -59,6 +71,7 @@ public class TarefaDAO implements ITarefaDAO{
 
         String sql = "SELECT * FROM " + DbHelper.TABELA_TAREFAS + " ;";
 
+        // Para que que serve o Cursor?
         Cursor c = leDados.rawQuery(sql, null);
 
         while(c.moveToNext()){
