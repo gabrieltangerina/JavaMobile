@@ -20,6 +20,7 @@ import com.example.listatarefas.adapter.AdapterTarefas;
 import com.example.listatarefas.databinding.ActivityMainBinding;
 import com.example.listatarefas.helper.DbHelper;
 import com.example.listatarefas.helper.RecyclerItemClickListener;
+import com.example.listatarefas.helper.TarefaDAO;
 import com.example.listatarefas.model.Tarefa;
 
 import android.view.Menu;
@@ -45,13 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Pegando o botao do canto inferior direito que cria tarefas
         binding = findViewById(R.id.fab);
-
-        // Classe para gravar valores, como um objeto (chave, valor)
-        ContentValues cv = new ContentValues();
-        cv.put("nome", "Teste");
-
-        DbHelper db = new DbHelper(this);
-        db.getWritableDatabase().insert("tarefas", null, cv);
 
         // Quando o usuário carregar o app pela primeira vez, será criado o evento de click
         recyclerView.addOnItemTouchListener(
@@ -97,14 +91,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void carregarListaTarefas(){
 
-        // Lista de tarefas, no momento sem usar banco de dados
-        Tarefa tarefa1 = new Tarefa();
-        tarefa1.setNomeTarefa("Ir ao mercado");
-        listaTarefas.add(tarefa1);
-
-        Tarefa tarefa2 = new Tarefa();
-        tarefa2.setNomeTarefa("Estudar Java Mobile");
-        listaTarefas.add(tarefa2);
+        TarefaDAO tarefaDAO = new TarefaDAO(getApplicationContext());
+        listaTarefas = tarefaDAO.listar();
 
         // Criando adapter
         AdapterTarefas adapterTarefas = new AdapterTarefas(listaTarefas);

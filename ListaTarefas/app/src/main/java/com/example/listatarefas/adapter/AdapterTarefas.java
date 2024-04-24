@@ -39,7 +39,7 @@ public class AdapterTarefas extends RecyclerView.Adapter<AdapterTarefas.MyViewHo
 
     @Override
     public int getItemCount() {
-        return this.listaTarefas.size();
+        return listaTarefas.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
