@@ -50,4 +50,7 @@ dependencies {
     // Config. Realtime Database (a versão é do vídeo)
     implementation("com.google.firebase:firebase-database:11.0.4")
 
+    // Config. Autenticação
+    implementation("com.google.firebase:firebase-auth")
+
 }
