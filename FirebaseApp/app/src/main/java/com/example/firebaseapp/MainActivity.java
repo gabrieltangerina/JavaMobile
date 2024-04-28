@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // FAZENDO LOGIN
+        /*
         autenticacao.signInWithEmailAndPassword("gabrieltng05@gmail.com", "123456")
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+         */
 
         // DESLOGANDO USUÁRIO
         // autenticacao.signOut();
@@ -99,5 +101,41 @@ public class MainActivity extends AppCompatActivity {
         Produto produto = new Produto("MacBook M1", "Apple", 6200.00);
         noProduto.child("001").setValue(produto);
         */
+
+
+        DatabaseReference noUsuario = referencia.child("usuarios");
+
+        /*
+        Usuario usuario1 = new Usuario("Gabriel", "Tangerina", 19);
+        Usuario usuario2 = new Usuario("Fulano", "da Silva", 31);
+        Usuario usuario3 = new Usuario("Maria", "Souza", 36);
+        Usuario usuario4 = new Usuario("Luiz", "Antonio", 24);
+
+        noUsuario.push().setValue(usuario1);
+        noUsuario.push().setValue(usuario2);
+        noUsuario.push().setValue(usuario3);
+        noUsuario.push().setValue(usuario4);
+        */
+
+        // LISTANDO OS USUÁRIOS DE ACORDO COM UM FILTRO
+        DatabaseReference usuarioPesquisa = noUsuario.child("-NwZqizuTOoZ4dEtIkt7");
+
+        usuarioPesquisa.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // Outra maneira de recuperar os dados
+                Usuario dadosUsuario = snapshot.getValue(Usuario.class); // Assim o snapshot irá retornar um objeto do tipo Usuario
+                Toast.makeText(getApplicationContext(), "Nome: " + dadosUsuario.getNome(), Toast.LENGTH_LONG).show();
+
+                // Uma maneira de recuperar os dados
+                // Toast.makeText(getApplicationContext(), snapshot.getValue().toString(), Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 }
