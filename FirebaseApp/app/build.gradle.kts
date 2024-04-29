@@ -47,10 +47,13 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
     implementation("com.google.firebase:firebase-analytics")
 
-    // Config. Realtime Database (a versão é do vídeo)
-    implementation("com.google.firebase:firebase-database:11.0.4")
+    // Config. Realtime Database
+    implementation("com.google.firebase:firebase-database")
 
     // Config. Autenticação
     implementation("com.google.firebase:firebase-auth")
+
+    // Config. Upload Imagens
+    implementation("com.google.firebase:firebase-storage")
 
 }

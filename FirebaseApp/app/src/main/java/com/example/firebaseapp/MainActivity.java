@@ -3,10 +3,17 @@ package com.example.firebaseapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,19 +23,83 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.net.URI;
 import java.util.Objects;
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
-    private DatabaseReference referencia = FirebaseDatabase.getInstance().getReference(); // Referência para a raiz dos dados
-    private FirebaseAuth autenticacao = FirebaseAuth.getInstance(); // Autenticação de login
+    // private DatabaseReference referencia = FirebaseDatabase.getInstance().getReference(); // Referência para a raiz dos dados
+    // private FirebaseAuth autenticacao = FirebaseAuth.getInstance(); // Autenticação de login
+
+    private ImageView imageFoto;
+    private Button buttonUpload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        imageFoto = findViewById(R.id.imageFoto);
+        buttonUpload = findViewById(R.id.buttonUpload);
+
+        buttonUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Configurando para imagem ser salva em memória
+                imageFoto.setDrawingCacheEnabled(true); // Habilitando para construir a imagem em memória
+                imageFoto.buildDrawingCache(); // Contruindo a imagem em memória
+
+                // Recupera bitmap da imagem (imagem a ser carregada)
+                Bitmap bitmap = imageFoto.getDrawingCache();
+
+                // Comprimindo bitmap para um formato png/jpeg
+                ByteArrayOutputStream baos = new ByteArrayOutputStream(); // Representação dos dados
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 75, baos);
+
+                // Convertendo o baos para pixel brutos em uma matriz de bytes
+                byte[] dadosImagem = baos.toByteArray();
+
+                // Definindo nós
+                StorageReference noStore = FirebaseStorage.getInstance().getReference();
+                StorageReference noPastaImagens = noStore.child("imagens");
+
+                String nomeArquivo = UUID.randomUUID().toString();
+                StorageReference noImagem = noPastaImagens.child(nomeArquivo + ".jpeg");
+
+                // Fazendo upload da imagem
+                UploadTask uploadTask = noImagem.putBytes(dadosImagem);
+
+                // Tratando erros e realizando operação de sucesso
+                uploadTask.addOnFailureListener(MainActivity.this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(MainActivity.this, "Falha ao fazer upload da imagem", Toast.LENGTH_LONG).show();
+                    }
+                }).addOnSuccessListener(MainActivity.this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                        noImagem.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Uri> task) {
+                                Uri url = task.getResult();
+                                Toast.makeText(MainActivity.this, "Sucesso ao realizar upload", Toast.LENGTH_LONG).show();
+                            }
+                        });
+
+                    }
+                });
+
+            }
+        });
 
         // FAZENDO LOGIN
         /*
@@ -104,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
         */
 
 
-        DatabaseReference noUsuario = referencia.child("usuarios");
+        // DatabaseReference noUsuario = referencia.child("usuarios");
 
         /*
         Usuario usuario1 = new Usuario("Gabriel", "Tangerina", 19);
@@ -117,13 +188,14 @@ public class MainActivity extends AppCompatActivity {
         noUsuario.push().setValue(usuario3);
         noUsuario.push().setValue(usuario4);
         */
-        
+
         // LISTANDO OS USUÁRIOS DE ACORDO COM UM FILTRO
         // DatabaseReference usuarioPesquisa = noUsuario.child("-NwZqizuTOoZ4dEtIkt7");
         // Query usuarioPesquisa = noUsuario.orderByChild("nome").equalTo("Gabriel");
         // Query usuarioPesquisa = noUsuario.orderByKey().limitToFirst(2);
-        Query usuarioPesquisa = noUsuario.orderByChild("nome").startAt("G").endAt("G" + "\uf8ff");
+        // Query usuarioPesquisa = noUsuario.orderByChild("nome").startAt("G").endAt("G" + "\uf8ff");
 
+        /*
         usuarioPesquisa.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -143,6 +215,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+         */
 
     }
 }
