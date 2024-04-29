@@ -14,6 +14,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
@@ -116,16 +117,22 @@ public class MainActivity extends AppCompatActivity {
         noUsuario.push().setValue(usuario3);
         noUsuario.push().setValue(usuario4);
         */
-
+        
         // LISTANDO OS USUÁRIOS DE ACORDO COM UM FILTRO
-        DatabaseReference usuarioPesquisa = noUsuario.child("-NwZqizuTOoZ4dEtIkt7");
+        // DatabaseReference usuarioPesquisa = noUsuario.child("-NwZqizuTOoZ4dEtIkt7");
+        // Query usuarioPesquisa = noUsuario.orderByChild("nome").equalTo("Gabriel");
+        // Query usuarioPesquisa = noUsuario.orderByKey().limitToFirst(2);
+        Query usuarioPesquisa = noUsuario.orderByChild("nome").startAt("G").endAt("G" + "\uf8ff");
 
         usuarioPesquisa.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // Outra maneira (Query)
+                Toast.makeText(getApplicationContext(),snapshot.getValue().toString(), Toast.LENGTH_LONG).show();
+
                 // Outra maneira de recuperar os dados
-                Usuario dadosUsuario = snapshot.getValue(Usuario.class); // Assim o snapshot irá retornar um objeto do tipo Usuario
-                Toast.makeText(getApplicationContext(), "Nome: " + dadosUsuario.getNome(), Toast.LENGTH_LONG).show();
+                //Usuario dadosUsuario = snapshot.getValue(Usuario.class); // Assim o snapshot irá retornar um objeto do tipo Usuario
+                //Toast.makeText(getApplicationContext(), "Nome: " + dadosUsuario.getNome(), Toast.LENGTH_LONG).show();
 
                 // Uma maneira de recuperar os dados
                 // Toast.makeText(getApplicationContext(), snapshot.getValue().toString(), Toast.LENGTH_LONG).show();
