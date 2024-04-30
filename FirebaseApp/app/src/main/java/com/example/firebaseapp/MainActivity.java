@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                /*
+
                 // Configurando para imagem ser salva em memória
                 imageFoto.setDrawingCacheEnabled(true); // Habilitando para construir a imagem em memória
                 imageFoto.buildDrawingCache(); // Contruindo a imagem em memória
@@ -77,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 // Fazendo upload da imagem
                 UploadTask uploadTask = noImagem.putBytes(dadosImagem);
 
+/*
                 // Tratando erros e realizando operação de sucesso
                 uploadTask.addOnFailureListener(MainActivity.this, new OnFailureListener() {
                     @Override
@@ -109,7 +113,24 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+                 */
+
+                StorageReference noStore = FirebaseStorage.getInstance().getReference();
+                StorageReference noPastaImagens = noStore.child("imagens");
+
+                StorageReference noImagem = noPastaImagens.child("df732e59-b1d6-4126-8fe5-81b68dc49fee.jpeg");
+
+                // Carregando imagens salvar no banco de dados
+                noImagem.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Glide.with(MainActivity.this).load(uri).into(imageFoto);
+                        Toast.makeText(MainActivity.this,"Sucesso ao alterar.", Toast.LENGTH_LONG).show();
+                    }
+                });
+
             }
+
         });
 
         // FAZENDO LOGIN

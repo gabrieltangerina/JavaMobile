@@ -15,7 +15,7 @@
         app:layout_constraintBottom_toTopOf="@+id/buttonUpload"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/celular" />
+        app:srcCompat="@drawable/padrao" />
 
     <Button
         android:id="@+id/buttonUpload"
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="471dp"
-        android:text="Upload Imagem"
+        android:text="Carregar Imagem"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageFoto"
         app:layout_constraintTop_toBottomOf="@+id/imageFoto" />

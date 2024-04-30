@@ -56,4 +56,7 @@ dependencies {
     // Config. Upload Imagens
     implementation("com.google.firebase:firebase-storage")
 
+    // Config. Dowload de Imagens
+    implementation("com.firebaseui:firebase-ui-storage:7.2.0")
+
 }
