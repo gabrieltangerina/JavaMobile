@@ -46,5 +46,5 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     // Config. Floating Action Menu
-    implementation("com.getbase:floatingactionbutton:1.10.1")
+    implementation("com.github.clans:fab:1.6.4")
 }
